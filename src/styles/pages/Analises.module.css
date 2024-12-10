@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  height: 100vh; /* Mantém a página ocupando toda a altura */
+  background-color: #f9f9f9;
+  position: relative; /* Certifique-se de que isso não interfira no modal */
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.analiseContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1.25rem;
+}
+
+.analiseFilters {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  margin: 0.625rem;
+}
+
+.updateFilter {
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.updateFilter:hover {
+  cursor: pointer;
+  background-color: #f0f0f0;
+}

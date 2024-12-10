@@ -1,0 +1,75 @@
+.sidebar {
+  width: 250px;
+  background-color: #f3f3f3;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  display: grid;
+  grid-template-rows: 1fr 0.5fr 5fr 0.5fr;
+  border-right: 1px solid #ccc;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo img {
+  width: 150px;
+}
+
+.uploadButton {
+  background-color: #4510a3;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-top: 50px;
+}
+
+.uploadButton:hover {
+  background-color: #5e35b1;
+}
+
+.menu_items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.7rem;
+}
+
+.menu_items li.active {
+  background-color: #d1c4e962;
+  border-left: 4px solid #4510a3;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.menu_items li.active a {
+  font-weight: bold;
+  color: #4510a3;
+}
+
+.menu_items li a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  color: #000;
+}
+
+.menu_items li a:hover {
+  color: #4510a3;
+  background-color: #ededed;
+}
+
+.icon {
+  margin-right: 10px;
+}

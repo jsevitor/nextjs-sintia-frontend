@@ -1,0 +1,116 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Certifique-se de que o modal tenha um z-index alto */
+}
+
+.modalContent {
+  background-color: var(--background);
+  background-color: #0cd2ab;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 850px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+
+.modalHeaderContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  width: 100%;
+}
+
+.modalHeader h1 {
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.modalHeader h1 span {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #fff;
+}
+
+.modalBg {
+  background-color: #fff;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 2rem;
+}
+
+.modalBody {
+  padding: 2rem;
+  color: #555;
+  margin: 0 3rem;
+  margin-top: -4rem;
+  background-color: #fff;
+  border: 2px solid #ece7e7;
+  border-radius: 2.5rem;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.infoSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.infoSection p,
+.infoSection p > strong {
+  font-size: 14px;
+}
+
+.contractNumber,
+.contractContractedParty,
+.contractContractor,
+.contractObject,
+.contractValue {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ece7e7;
+  border-radius: 0.6rem;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.contractContractedParty,
+.contractContractor,
+.contractObject,
+.contractValue {
+  grid-column: 1 / span 2;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  padding-right: 3rem;
+}
+
+.modalButtonPrimary {
+  background-color: #6c43ff;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.modalButtonPrimary:hover {
+  background-color: #5a36db;
+}

@@ -1,0 +1,52 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+  height: 150px;
+  flex: 1;
+  margin: 0.625rem;
+  position: relative; /* Necessário para aplicar o z-index */
+  z-index: 1; /* Certifique-se de que o card tenha um z-index menor que o modal */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-weight: 600;
+  margin-left: 0.625rem;
+}
+
+.value {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-top: 0.625rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.625rem;
+}
+
+.percentage {
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+
+.positive {
+  color: #4caf50; /* Verde para positivo */
+}
+
+.description {
+  font-size: 0.75rem;
+  color: #666;
+}

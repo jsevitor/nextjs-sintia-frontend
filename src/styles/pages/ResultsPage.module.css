@@ -1,0 +1,14 @@
+.container {
+  padding: 20px;
+  margin-top: -100px; /* Margem negativa para sobrepor o Header */
+  position: relative; /* Necessário para que o z-index funcione */
+  z-index: 1; /* Valor de z-index menor que o modal */
+}
+
+.cardsContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1; /* Certifique-se de que o z-index é menor que o modal */
+}

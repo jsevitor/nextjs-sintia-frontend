@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.homeContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.welcomeIcon img {
+  width: 200px;
+  margin-bottom: 20px;
+}
