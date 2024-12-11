@@ -1,27 +1,33 @@
 import ResultCard from "@/components/ResultCard";
+import { useContractContext } from "@/context/ContractContext";
 import styles from "@/styles/pages/ResultsPage.module.css";
 
 const ResultsPage = () => {
+  const { analyzedCount, totalContractValue } = useContractContext();
+
   return (
     <div className={styles.container}>
       <div className={styles.cardsContainer}>
         <ResultCard
           title="Total Contratos"
-          value="1"
+          value={analyzedCount}
           percentage="100%"
-          description="Mais que o mês anterior"
+          description="&nbsp;a mais que o mês anterior"
         />
         <ResultCard
           title="Valor Total Contratos"
-          value="R$ 410k"
-          percentage="100%"
-          description="Aumento"
+          value={new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          }).format(totalContractValue)}
+          percentage="Aumento"
+          description="&nbsp;no valor acumulado dos contratos"
         />
         <ResultCard
           title="Progresso em Relação à Meta"
           value="14%"
-          percentage="Meta Restante"
-          description="Meta Restante"
+          percentage="Valor total"
+          description="&nbsp;Meta Restante"
         />
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { ContractProvider } from "@/context/ContractContext";
 import "@/styles/globals.css";
 import Head from "next/head";
 
@@ -15,7 +16,9 @@ export default function App({ Component, pageProps }) {
         />
         <title>AnalisAI</title>
       </Head>
-      <Component {...pageProps} />
+      <ContractProvider>
+        <Component {...pageProps} />
+      </ContractProvider>
     </>
   );
 }

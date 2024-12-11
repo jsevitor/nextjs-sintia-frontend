@@ -21,7 +21,7 @@ const UploadStatus = ({ fileName, isUploading, onCancel, onClose }) => {
     <div className={styles.uploadStatus}>
       <div className={styles.uploadHeader}>
         <span>Processando um arquivo</span>
-        <i class="bi bi-x-circle" onClick={onClose}></i>
+        <i className="bi bi-x-circle" onClick={onClose}></i>
       </div>
       <div className={styles.progressContent}>
         <div className={styles.progressInfo}>
@@ -44,7 +44,7 @@ const UploadStatus = ({ fileName, isUploading, onCancel, onClose }) => {
         </div>
       </div>
       <div className={styles.fileInfo}>
-        <i class="bi bi-file-earmark-text"></i>
+        <i className="bi bi-file-earmark-text"></i>
         <span>{fileName}</span>
       </div>
     </div>

@@ -1,22 +1,24 @@
 import { useRef, useState } from "react";
-import { useRouter } from "next/router"; // Importar useRouter
+import { useRouter } from "next/router";
 import styles from "@/styles/components/Sidebar.module.css";
 import api from "@/services/api";
-import UploadStatus from "./UploadStatus"; // Certifique-se de que o caminho para o componente UploadStatus esteja correto
+import UploadStatus from "./UploadStatus";
 import Link from "next/link";
 import Image from "next/image";
+import { useContractContext } from "@/context/ContractContext"; // Importando o contexto
 
 const Sidebar = () => {
   const fileInputRef = useRef(null);
   const [isUploading, setIsUploading] = useState(false);
   const [fileName, setFileName] = useState("");
-  const router = useRouter(); // Usar o hook useRouter para capturar a rota atual
+  const router = useRouter();
+  const { updateContracts } = useContractContext(); // Consumindo a função do contexto
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     if (file) {
       setFileName(file.name);
-      setIsUploading(true); // Defina isUploading para true assim que o arquivo for selecionado
+      setIsUploading(true);
       handleFileUpload(file);
     }
   };
@@ -26,17 +28,24 @@ const Sidebar = () => {
     formData.append("file", file);
 
     try {
-      // Enviar o arquivo para o servidor usando Axios
+      // Enviar o arquivo para o servidor
       const response = await api.post("/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
       console.log("Arquivo enviado com sucesso:", response.data);
+
+      // Recarregar os dados após o upload
+      const contractsResponse = await api.get("/contracts");
+      const updatedContracts = Array.isArray(contractsResponse.data)
+        ? contractsResponse.data
+        : [contractsResponse.data];
+      updateContracts(updatedContracts); // Atualiza o contexto
     } catch (error) {
       console.error("Erro ao enviar o arquivo:", error);
     } finally {
-      setIsUploading(false); // Finaliza o processo de upload
+      setIsUploading(false);
     }
   };
 
@@ -45,23 +54,22 @@ const Sidebar = () => {
   };
 
   const handleCancelUpload = () => {
-    setIsUploading(false); // Cancela o upload
+    setIsUploading(false);
     setFileName("");
   };
 
   const handleCloseUpload = () => {
-    setIsUploading(false); // Cancela o upload
+    setIsUploading(false);
     setFileName("");
   };
 
   const isActive = (path) => {
-    return router.pathname === path ? styles.active : ""; // Verifica se o item é a página atual
+    return router.pathname === path ? styles.active : "";
   };
 
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logo}>
-        {/* <img src="" alt="Granto Seguros" /> */}
         <Image src="./logo.svg" alt="Granto Seguros" width={100} height={100} />
       </div>
 
@@ -89,7 +97,7 @@ const Sidebar = () => {
           </li>
           <li className={isActive("/analises")}>
             <Link href={"/analises"}>
-              <i className="bi bi-file"></i>
+              <i className="bi bi-file-earmark-break"></i>
               Contratos
             </Link>
           </li>

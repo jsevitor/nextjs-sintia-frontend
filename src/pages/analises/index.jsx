@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 import styles from "@/styles/pages/Analises.module.css";
 import api from "@/services/api";
+import { useContractContext } from "@/context/ContractContext";
 
 export default function Analises() {
   const [checked, setChecked] = useState(false);
@@ -15,16 +16,17 @@ export default function Analises() {
   const [isLoading, setIsLoading] = useState(false);
   const [dbData, setDbData] = useState(null);
 
+  const { updateContracts, contracts } = useContractContext();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(8); // Número de itens por página
+
   const fetchDbData = async () => {
     try {
       const response = await api.get("/contracts");
-
-      // Verifica se os dados retornados são um array, senão transforma em array
       const data = Array.isArray(response.data)
         ? response.data
         : [response.data];
-
-      setDbData(data); // Agora dbData será sempre um array
+      updateContracts(data); // Atualiza o estado do contexto
     } catch (error) {
       console.error("Erro ao buscar contratos:", error);
     }
@@ -33,6 +35,19 @@ export default function Analises() {
   useEffect(() => {
     fetchDbData();
   }, []);
+
+  // Lógica de paginação
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = contracts.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(contracts.length / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   const handleCheck = (event) => {
     setChecked(event.target.checked);
@@ -43,13 +58,6 @@ export default function Analises() {
     if (event.target.files) {
       setFile(event.target.files[0]);
     }
-  };
-
-  const handleSelectAll = (event) => {
-    const updatedCheckedState = new Array(data.length).fill(
-      event.target.checked
-    );
-    setCheckedState(updatedCheckedState);
   };
 
   const handleTableUpdate = () => {
@@ -71,10 +79,16 @@ export default function Analises() {
                   className="bi bi-arrow-counterclockwise"
                   onClick={handleTableUpdate}
                 ></i>
+                <i className="bi bi-trash"></i>
               </span>
             </div>
           </div>
-          <Table data={dbData || []} />
+          <Table
+            data={currentItems} // Passando os itens filtrados pela página
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </MainContent>
       </div>
     </div>

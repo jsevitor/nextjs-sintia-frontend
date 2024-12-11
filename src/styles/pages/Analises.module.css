@@ -25,18 +25,26 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
-  margin: 0.625rem;
+  padding: 0.25rem 1rem;
+  margin: 0 0.625rem;
 }
 
 .updateFilter {
   padding: 0.2rem;
-  border-radius: 0.5rem;
   display: flex;
   align-items: center;
+  gap: 1rem;
+  padding-left: 1rem;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.updateFilter:hover {
+.updateFilter i {
+  padding: 0.2rem 0.3rem;
+  border-radius: 0.2rem;
+}
+
+.updateFilter i:hover {
   cursor: pointer;
-  background-color: #f0f0f0;
+  background-color: #d1c4e962;
+  color: #4510a3;
 }
