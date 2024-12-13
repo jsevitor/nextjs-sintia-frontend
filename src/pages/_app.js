@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
         />
-        <title>AnalisAI</title>
+        <title>Análise de Contratos</title>
       </Head>
       <ContractProvider>
         <Component {...pageProps} />

@@ -103,7 +103,16 @@ const Sidebar = () => {
           </li>
         </ul>
       </nav>
-
+      <footer className={styles.footer}>
+        <div className={styles.attribution}>
+          © 2024 Voliverx Dev.
+          <br /> Todos os direitos reservados.
+        </div>
+        <div className={styles.attribution}>
+          Coded by{" "}
+          <a href="https://jsevitor.github.io/portfolio/">Vitor Oliveira</a>.
+        </div>
+      </footer>
       {/* Exibir o status de upload */}
       {isUploading && (
         <UploadStatus

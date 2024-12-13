@@ -48,25 +48,25 @@
 
 .modalBg {
   background-color: #fff;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  padding: 2rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 1rem;
 }
 
 .modalBody {
-  padding: 2rem;
+  padding: 1.5rem;
   color: #555;
-  margin: 0 3rem;
-  margin-top: -4rem;
+  margin: 0 1rem;
+  margin-top: -3rem;
   background-color: #fff;
   border: 2px solid #ece7e7;
-  border-radius: 2.5rem;
+  border-radius: 1.5rem;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .infoSection {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
 }
 
@@ -75,29 +75,52 @@
   font-size: 14px;
 }
 
-.contractNumber,
-.contractContractedParty,
-.contractContractor,
-.contractObject,
-.contractValue {
-  padding: 0.5rem 1rem;
+.contractInfo,
+.contractedPartyInfo,
+.contractorInfo {
   border: 1px solid #ece7e7;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   border-radius: 0.6rem;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
 
+.contractInfo__um {
+  display: flex;
+}
+
+.contractNumber,
+.contractTerm {
+  flex: 1;
+  text-transform: lowercase;
+}
+
+.sectionName,
+.contractNumber,
+.contractTerm,
 .contractContractedParty,
 .contractContractor,
 .contractObject,
-.contractValue {
-  grid-column: 1 / span 2;
+.contractValue,
+.contractRepresentativeParties {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ece7e7;
+}
+
+.sectionName {
+  border-top-left-radius: 0.6rem;
+  border-top-right-radius: 0.6rem;
+}
+
+.contractValue,
+.contractRepresentativeParties {
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
 }
 
 .modalFooter {
   display: flex;
   justify-content: flex-end;
   padding-top: 1rem;
-  padding-right: 3rem;
+  padding-right: 1rem;
 }
 
 .modalButtonPrimary {

@@ -1,11 +1,14 @@
 import styles from "@/styles/components/Table.module.css";
 import { useState } from "react";
 import DetailModal from "./DatailModal";
+import { useContractContext } from "@/context/ContractContext";
+import api from "@/services/api";
 
 const Table = ({ data, currentPage, totalPages, onPageChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedContract, setSelectedContract] = useState(null);
-  const [selectedRows, setSelectedRows] = useState([]); // Estado para as linhas selecionadas
+  const [selectedRows, setSelectedRows] = useState([]);
+  const { deleteContract } = useContractContext();
 
   const currencyFormat = (value) => {
     return new Intl.NumberFormat("pt-BR", {
@@ -24,13 +27,24 @@ const Table = ({ data, currentPage, totalPages, onPageChange }) => {
     setSelectedContract(null);
   };
 
-  // Função para alternar a seleção de linhas
   const handleCheckboxChange = (index) => {
     setSelectedRows((prevSelected) =>
       prevSelected.includes(index)
         ? prevSelected.filter((id) => id !== index)
         : [...prevSelected, index]
     );
+  };
+
+  // Função para deletar o contrato
+  const handleDelete = async (contractId) => {
+    try {
+      await api.delete(`/contracts/${contractId}`); // Chamada ao backend
+      deleteContract(contractId); // Remove o contrato do estado global
+      alert("Contrato deletado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao deletar contrato:", error);
+      alert("Erro ao deletar contrato. Tente novamente.");
+    }
   };
 
   return (
@@ -65,9 +79,9 @@ const Table = ({ data, currentPage, totalPages, onPageChange }) => {
                   />
                 </td>
                 <td>{contract.contract_number || "N/A"}</td>
-                <td>{contract.contractor_name || "N/A"}</td>
-                <td>{contract.contracted_party_document || "N/A"}</td>
                 <td>{contract.contracted_party_name || "N/A"}</td>
+                <td>{contract.contracted_party_document || "N/A"}</td>
+                <td>{contract.contractor_name || "N/A"}</td>
                 <td>{contract.contract_object || "N/A"}</td>
                 <td>{currencyFormat(contract.contract_value)}</td>
                 <td>
@@ -87,25 +101,23 @@ const Table = ({ data, currentPage, totalPages, onPageChange }) => {
           onClose={closeModal}
           contract={selectedContract}
         />
-
-        {/* Paginação */}
-        <div className={styles.pagination}>
-          <button
-            onClick={() => onPageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            <i className="bi bi-caret-left-fill"></i>
-          </button>
-          <span>
-            Página {currentPage} de {totalPages}
-          </span>
-          <button
-            onClick={() => onPageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            <i className="bi bi-caret-right-fill"></i>
-          </button>
-        </div>
+      </div>
+      <div className={styles.pagination}>
+        <button
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          <i className="bi bi-caret-left-fill"></i>
+        </button>
+        <span>
+          Página {currentPage} de {totalPages}
+        </span>
+        <button
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          <i className="bi bi-caret-right-fill"></i>
+        </button>
       </div>
     </div>
   );
