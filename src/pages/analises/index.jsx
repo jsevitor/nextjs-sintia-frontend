@@ -19,7 +19,7 @@ export default function Analises() {
   const [searchTerm, setSearchTerm] = useState(""); // Estado para armazenar a pesquisa
   const { updateContracts, contracts } = useContractContext();
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10); // Número de itens por página
+  const [itemsPerPage] = useState(8); // Número de itens por página
 
   const fetchDbData = async () => {
     try {

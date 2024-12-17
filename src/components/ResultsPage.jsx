@@ -25,9 +25,10 @@ const ResultsPage = () => {
         />
         <ResultCard
           title="Progresso em Relação à Meta"
-          value="14%"
+          value={analyzedCount} // Progresso em %
           percentage="Valor total"
           description="&nbsp;Meta Restante"
+          showProgress={true} // Ativa o gráfico de roda
         />
       </div>
     </div>
