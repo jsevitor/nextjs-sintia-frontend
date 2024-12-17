@@ -1,8 +1,8 @@
-import styles from "@/styles/components/Table.module.css";
 import { useState } from "react";
 import DetailModal from "./DetailModal";
 import { useContractContext } from "@/context/ContractContext";
 import api from "@/services/api";
+import styles from "@/styles/components/Table.module.css";
 
 const Table = ({
   data,
@@ -14,6 +14,12 @@ const Table = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedContract, setSelectedContract] = useState(null);
+
+  // Estado para armazenar a ordenação
+  const [sortConfig, setSortConfig] = useState({
+    key: "contract_number", // Coluna inicial para ordenar
+    direction: "asc", // Direção da ordenação (ascendente)
+  });
 
   const currencyFormat = (value) => {
     return new Intl.NumberFormat("pt-BR", {
@@ -36,6 +42,26 @@ const Table = ({
     setSelectedContract(null);
   };
 
+  // Função para aplicar a ordenação
+  const handleSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  // Função para ordenar os dados
+  const sortedData = [...data].sort((a, b) => {
+    if (a[sortConfig.key] < b[sortConfig.key]) {
+      return sortConfig.direction === "asc" ? -1 : 1;
+    }
+    if (a[sortConfig.key] > b[sortConfig.key]) {
+      return sortConfig.direction === "asc" ? 1 : -1;
+    }
+    return 0;
+  });
+
   return (
     <div className={styles.tableContainer}>
       <div className={styles.tableContent}>
@@ -43,17 +69,50 @@ const Table = ({
           <thead>
             <tr>
               <th></th>
-              <th>N° Contrato</th>
-              <th>Contratado</th>
+              <th onClick={() => handleSort("contract_number")}>
+                N° Contrato{" "}
+                {sortConfig.key === "contract_number" ? (
+                  sortConfig.direction === "asc" ? (
+                    <i className="bi bi-arrow-up-short"></i>
+                  ) : (
+                    <i className="bi bi-arrow-down-short"></i>
+                  )
+                ) : (
+                  <i className="bi bi-arrow-up-down"></i>
+                )}
+              </th>
+              <th onClick={() => handleSort("contracted_party_name")}>
+                Contratado{" "}
+                {sortConfig.key === "contracted_party_name" ? (
+                  sortConfig.direction === "asc" ? (
+                    <i className="bi bi-arrow-up-short"></i>
+                  ) : (
+                    <i className="bi bi-arrow-down-short"></i>
+                  )
+                ) : (
+                  <i className="bi bi-arrow-up-down"></i>
+                )}
+              </th>
               <th>CPF/CNPJ Contratado</th>
               <th>Unidade Contratante</th>
               <th>Objeto de Contrato</th>
-              <th>Valor Contratado</th>
+              <th onClick={() => handleSort("contract_value")}>
+                Valor Contratado{" "}
+                {sortConfig.key === "contract_value" ? (
+                  sortConfig.direction === "asc" ? (
+                    <i className="bi bi-arrow-up-short"></i>
+                  ) : (
+                    <i className="bi bi-arrow-down-short"></i>
+                  )
+                ) : (
+                  <i className="bi bi-arrow-up-down"></i>
+                )}
+              </th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {data.map((contract) => {
+            {sortedData.map((contract) => {
               const isSelected = selectedContracts.includes(contract.id);
 
               return (
