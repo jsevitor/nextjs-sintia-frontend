@@ -1,17 +1,18 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
-import styles from "@/styles/components/Sidebar.module.css";
-import api from "@/services/api";
+import { useContractContext } from "@/context/ContractContext"; // Importando o contexto
 import UploadStatus from "./UploadStatus";
 import Link from "next/link";
 import Image from "next/image";
-import { useContractContext } from "@/context/ContractContext"; // Importando o contexto
+import api from "@/services/api";
+import styles from "@/styles/components/Sidebar.module.css";
+import toast from "react-hot-toast";
 
 const Sidebar = () => {
   const fileInputRef = useRef(null);
+  const router = useRouter();
   const [isUploading, setIsUploading] = useState(false);
   const [fileName, setFileName] = useState("");
-  const router = useRouter();
   const { updateContracts } = useContractContext(); // Consumindo a função do contexto
 
   const handleFileSelect = (event) => {
@@ -41,8 +42,13 @@ const Sidebar = () => {
       const updatedContracts = Array.isArray(contractsResponse.data)
         ? contractsResponse.data
         : [contractsResponse.data];
+      toast.success("Contrato adicionado com sucesso!"),
+        {
+          duration: 3000,
+        };
       updateContracts(updatedContracts); // Atualiza o contexto
     } catch (error) {
+      toast.error("Erro ao enviar o arquivo");
       console.error("Erro ao enviar o arquivo:", error);
     } finally {
       setIsUploading(false);

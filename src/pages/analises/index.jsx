@@ -1,24 +1,24 @@
-import Sidebar from "@/components/Sidebar";
-import Header from "@/components/Header";
-import ResultCards from "@/components/ResultsPage";
-import Table from "@/components/Table";
-import MainContent from "@/components/MainContent";
 import { useEffect, useState } from "react";
-
-import styles from "@/styles/pages/Analises.module.css";
-import api from "@/services/api";
 import { useContractContext } from "@/context/ContractContext";
+import Header from "@/components/Header";
+import Table from "@/components/Table";
+import Sidebar from "@/components/Sidebar";
+import MainContent from "@/components/MainContent";
+import ResultCards from "@/components/ResultsPage";
+import ConfirmDeleteModal from "@/components/ConfirmModal";
+
+import api from "@/services/api";
+import styles from "@/styles/pages/Analises.module.css";
+import toast from "react-hot-toast";
 
 export default function Analises() {
-  const [checked, setChecked] = useState(false);
-  const [file, setFile] = useState(null);
-  const [result, setResult] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [dbData, setDbData] = useState(null);
-
+  const [selectedContracts, setSelectedContracts] = useState([]); // Estado para os contratos selecionados
+  const [selectAllChecked, setSelectAllChecked] = useState(false); // Estado para controlar o checkbox "Selecionar todos"
+  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar se o modal está aberto
+  const [contractsToDelete, setContractsToDelete] = useState([]); // Estado para armazenar os contratos a serem deletados
   const { updateContracts, contracts } = useContractContext();
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(8); // Número de itens por página
+  const [itemsPerPage] = useState(10); // Número de itens por página
 
   const fetchDbData = async () => {
     try {
@@ -49,19 +49,72 @@ export default function Analises() {
     }
   };
 
-  const handleCheck = (event) => {
-    setChecked(event.target.checked);
-    console.log(event.target.checked);
+  // Função para selecionar/deselecionar contratos
+  const handleCheckboxChange = (contractId, isChecked) => {
+    setSelectedContracts((prevSelected) => {
+      if (isChecked) {
+        return [...prevSelected, contractId];
+      } else {
+        return prevSelected.filter((id) => id !== contractId);
+      }
+    });
   };
 
-  const handleFileChange = (event) => {
-    if (event.target.files) {
-      setFile(event.target.files[0]);
+  // Função para chamar a exclusão e abrir o modal
+  const handleDeleteContracts = () => {
+    if (selectedContracts.length === 0) {
+      // Exibe um toast de erro se nenhum contrato for selecionado
+      toast.error("Nenhum contrato selecionado!");
+    } else {
+      // Caso contrário, exibe o modal de confirmação
+      setContractsToDelete(selectedContracts);
+      setIsModalOpen(true);
     }
   };
 
+  // Função para excluir os contratos quando confirmado
+  const confirmDeleteContracts = async () => {
+    try {
+      await api.delete("/contracts", {
+        data: { ids: contractsToDelete },
+      });
+
+      toast.success("Deletado com sucesso!"), { duration: 3000 };
+      fetchDbData();
+      setSelectedContracts([]);
+      setIsModalOpen(false); // Fecha o modal após a exclusão
+      setContractsToDelete([]); // Limpa a lista de contratos a serem deletados
+    } catch (error) {
+      toast.error("Erro ao deletar contratos");
+      console.error("Erro ao deletar contratos:", error);
+      setIsModalOpen(false); // Fecha o modal em caso de erro
+    }
+  };
+
+  // Função para fechar o modal sem excluir
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setContractsToDelete([]);
+  };
+
+  // Função para atualizar a tabela
   const handleTableUpdate = () => {
     fetchDbData();
+    toast.success("Atualizado com sucesso!");
+  };
+
+  // Função para selecionar/deselecionar todos os contratos
+  const handleSelectAllChange = (isChecked) => {
+    setSelectAllChecked(isChecked); // Atualiza o estado de "Selecionar todos"
+
+    if (isChecked) {
+      // Se "Selecionar todos" estiver marcado, selecionar todos os contratos da tabela
+      const allContractIds = currentItems.map((contract) => contract.id);
+      setSelectedContracts(allContractIds);
+    } else {
+      // Caso contrário, desmarcar todos os contratos
+      setSelectedContracts([]);
+    }
   };
 
   return (
@@ -73,13 +126,20 @@ export default function Analises() {
         <MainContent>
           <div className={styles.analiseContainer}>
             <div className={styles.analiseFilters}>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={selectAllChecked} // O checkbox "Selecionar todos" será marcado/desmarcado com base no estado
+                onChange={(e) => handleSelectAllChange(e.target.checked)} // Atualiza o estado de "Selecionar todos"
+              />
               <span className={styles.updateFilter}>
                 <i
                   className="bi bi-arrow-counterclockwise"
                   onClick={handleTableUpdate}
                 ></i>
-                <i className="bi bi-trash"></i>
+                <i
+                  className="bi bi-trash"
+                  onClick={handleDeleteContracts} // Chama a função de deletar
+                ></i>
               </span>
             </div>
           </div>
@@ -88,9 +148,18 @@ export default function Analises() {
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
+            onCheckboxChange={handleCheckboxChange} // Passando a função para a tabela
+            selectedContracts={selectedContracts} // Passando os contratos selecionados
           />
         </MainContent>
       </div>
+
+      {/* Modal de confirmação */}
+      <ConfirmDeleteModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConfirm={confirmDeleteContracts}
+      />
     </div>
   );
 }

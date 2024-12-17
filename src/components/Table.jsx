@@ -1,20 +1,29 @@
 import styles from "@/styles/components/Table.module.css";
 import { useState } from "react";
-import DetailModal from "./DatailModal";
+import DetailModal from "./DetailModal";
 import { useContractContext } from "@/context/ContractContext";
 import api from "@/services/api";
 
-const Table = ({ data, currentPage, totalPages, onPageChange }) => {
+const Table = ({
+  data,
+  currentPage,
+  totalPages,
+  onPageChange,
+  onCheckboxChange,
+  selectedContracts,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedContract, setSelectedContract] = useState(null);
-  const [selectedRows, setSelectedRows] = useState([]);
-  const { deleteContract } = useContractContext();
 
   const currencyFormat = (value) => {
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
     }).format(value);
+  };
+
+  const handleCheckboxChange = (event, contractId) => {
+    onCheckboxChange(contractId, event.target.checked);
   };
 
   const openModal = (contract) => {
@@ -25,26 +34,6 @@ const Table = ({ data, currentPage, totalPages, onPageChange }) => {
   const closeModal = () => {
     setIsOpen(false);
     setSelectedContract(null);
-  };
-
-  const handleCheckboxChange = (index) => {
-    setSelectedRows((prevSelected) =>
-      prevSelected.includes(index)
-        ? prevSelected.filter((id) => id !== index)
-        : [...prevSelected, index]
-    );
-  };
-
-  // Função para deletar o contrato
-  const handleDelete = async (contractId) => {
-    try {
-      await api.delete(`/contracts/${contractId}`); // Chamada ao backend
-      deleteContract(contractId); // Remove o contrato do estado global
-      alert("Contrato deletado com sucesso!");
-    } catch (error) {
-      console.error("Erro ao deletar contrato:", error);
-      alert("Erro ao deletar contrato. Tente novamente.");
-    }
   };
 
   return (
@@ -64,35 +53,39 @@ const Table = ({ data, currentPage, totalPages, onPageChange }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((contract, index) => (
-              <tr
-                key={index}
-                className={
-                  selectedRows.includes(index) ? styles.selectedRow : ""
-                }
-              >
-                <td>
-                  <input
-                    type="checkbox"
-                    checked={selectedRows.includes(index)}
-                    onChange={() => handleCheckboxChange(index)}
-                  />
-                </td>
-                <td>{contract.contract_number || "N/A"}</td>
-                <td>{contract.contracted_party_name || "N/A"}</td>
-                <td>{contract.contracted_party_document || "N/A"}</td>
-                <td>{contract.contractor_name || "N/A"}</td>
-                <td>{contract.contract_object || "N/A"}</td>
-                <td>{currencyFormat(contract.contract_value)}</td>
-                <td>
-                  <i
-                    className="bi bi-search"
-                    onClick={() => openModal(contract)}
-                    style={{ cursor: "pointer" }}
-                  ></i>
-                </td>
-              </tr>
-            ))}
+            {data.map((contract) => {
+              const isSelected = selectedContracts.includes(contract.id);
+
+              return (
+                <tr
+                  key={contract.id}
+                  className={isSelected ? styles.selectedRow : ""}
+                >
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={(event) =>
+                        handleCheckboxChange(event, contract.id)
+                      }
+                    />
+                  </td>
+                  <td>{contract.contract_number || "N/A"}</td>
+                  <td>{contract.contracted_party_name || "N/A"}</td>
+                  <td>{contract.contracted_party_document || "N/A"}</td>
+                  <td>{contract.contractor_name || "N/A"}</td>
+                  <td>{contract.contract_object || "N/A"}</td>
+                  <td>{currencyFormat(contract.contract_value)}</td>
+                  <td>
+                    <i
+                      className="bi bi-search"
+                      onClick={() => openModal(contract)}
+                      style={{ cursor: "pointer" }}
+                    ></i>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
 

@@ -1,6 +1,7 @@
 import { ContractProvider } from "@/context/ContractContext";
-import "@/styles/globals.css";
+import { Toaster } from "react-hot-toast";
 import Head from "next/head";
+import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }) {
         <title>Análise de Contratos</title>
       </Head>
       <ContractProvider>
+        <Toaster position="top-right" />
         <Component {...pageProps} />
       </ContractProvider>
     </>

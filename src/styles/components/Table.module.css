@@ -81,3 +81,7 @@
 .pagination span {
   font-size: 0.825rem;
 }
+
+.selected-row {
+  background-color: #d3f9d8; /* Verde claro */
+}

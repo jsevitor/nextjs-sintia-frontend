@@ -16,8 +16,8 @@ export default function Home() {
             </div>
             <h2>Seja bem vindo(a), ao seu portal de análise de contratos</h2>
             <p>
-              Arraste seus arquivos e pastas para cá ou use o botão "Enviar
-              Arquivo" para fazer upload e começar a analisar.
+              Use o botão "Enviar Arquivo" para fazer upload e começar a
+              analisar.
             </p>
           </div>
         </MainContent>
