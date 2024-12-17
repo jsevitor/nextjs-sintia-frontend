@@ -16,6 +16,7 @@ export default function Analises() {
   const [selectAllChecked, setSelectAllChecked] = useState(false); // Estado para controlar o checkbox "Selecionar todos"
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar se o modal está aberto
   const [contractsToDelete, setContractsToDelete] = useState([]); // Estado para armazenar os contratos a serem deletados
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para armazenar a pesquisa
   const { updateContracts, contracts } = useContractContext();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10); // Número de itens por página
@@ -33,15 +34,41 @@ export default function Analises() {
   };
 
   useEffect(() => {
-    fetchDbData();
-  }, []);
+    fetchDbData(); // Chama a função imediatamente ao carregar a página
+
+    // Configura o temporizador de 2 minutos (120.000ms)
+    const interval = setInterval(fetchDbData, 120000);
+
+    // Limpeza do intervalo quando o componente for desmontado
+    return () => clearInterval(interval);
+  }, []); // O array vazio faz com que isso rode apenas uma vez quando o componente for montado
 
   // Lógica de paginação
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = contracts.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(contracts.length / itemsPerPage);
+  // Função para atualizar o termo de busca
+  const handleSearchChange = (term) => {
+    setSearchTerm(term); // Atualiza o valor do termo de pesquisa
+  };
+
+  // Função para filtrar contratos com base no termo de busca
+  const filteredContracts = contracts.filter((contract) => {
+    const searchTermLower = searchTerm.toLowerCase(); // Fazemos a busca em minúsculas
+    return (
+      contract.contract_number?.toLowerCase().includes(searchTermLower) ||
+      contract.contracted_party_name?.toLowerCase().includes(searchTermLower) ||
+      contract.contractor_name?.toLowerCase().includes(searchTermLower) ||
+      contract.contract_object?.toLowerCase().includes(searchTermLower)
+    );
+  });
+
+  // Lógica de paginação considerando contratos filtrados
+  const currentItems = filteredContracts.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+  const totalPages = Math.ceil(filteredContracts.length / itemsPerPage);
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -108,8 +135,8 @@ export default function Analises() {
     setSelectAllChecked(isChecked); // Atualiza o estado de "Selecionar todos"
 
     if (isChecked) {
-      // Se "Selecionar todos" estiver marcado, selecionar todos os contratos da tabela
-      const allContractIds = currentItems.map((contract) => contract.id);
+      // Se "Selecionar todos" estiver marcado, selecionar todos os contratos filtrados
+      const allContractIds = filteredContracts.map((contract) => contract.id);
       setSelectedContracts(allContractIds);
     } else {
       // Caso contrário, desmarcar todos os contratos
@@ -121,7 +148,7 @@ export default function Analises() {
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.content}>
-        <Header />
+        <Header onSearch={handleSearchChange} />
         <ResultCards />
         <MainContent>
           <div className={styles.analiseContainer}>
@@ -144,7 +171,7 @@ export default function Analises() {
             </div>
           </div>
           <Table
-            data={currentItems} // Passando os itens filtrados pela página
+            data={currentItems} // Passando os contratos filtrados
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
