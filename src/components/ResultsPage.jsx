@@ -9,13 +9,13 @@ const ResultsPage = () => {
     <div className={styles.container}>
       <div className={styles.cardsContainer}>
         <ResultCard
-          title="Total Contratos"
+          title="Total de Contratos"
           value={analyzedCount}
           percentage="100%"
           description="&nbsp;a mais que o mês anterior"
         />
         <ResultCard
-          title="Valor Total Contratos"
+          title="Valor Total dos Contratos"
           value={new Intl.NumberFormat("pt-BR", {
             style: "currency",
             currency: "BRL",

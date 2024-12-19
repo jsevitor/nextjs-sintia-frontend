@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
         />
-        <title>Análise de Contratos</title>
+        <title>Sintia - Análise de Contratos</title>
       </Head>
       <ContractProvider>
         <Toaster position="top-right" />

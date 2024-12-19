@@ -90,7 +90,7 @@ const Sidebar = () => {
 
       {/* Botão para enviar arquivo */}
       <button className={styles.uploadButton} onClick={triggerFileInput}>
-        + Enviar Arquivo
+        <i class="bi bi-plus"></i> <span>Enviar Arquivo</span>
       </button>
 
       <nav>

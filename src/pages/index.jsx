@@ -14,11 +14,17 @@ export default function Home() {
             <div className={styles.welcomeIcon}>
               <img src="/file.svg" alt="Documento" />
             </div>
-            <h2>Seja bem vindo(a), ao seu portal de análise de contratos</h2>
-            <p>
-              Use o botão "Enviar Arquivo" para fazer upload e começar a
-              analisar.
-            </p>
+            <div className={styles.welcomeContent}>
+              <h2>Bem-vindo(a) ao seu portal de análise de contratos!</h2>
+              <p>
+                Sintia é sua assistente para simplificar a análise contratos com
+                inteligência artificial.
+              </p>
+              <p style={{ marginTop: "1.5rem" }}>
+                Use o botão <strong>"Enviar Arquivo"</strong> para fazer upload
+                de um arquivo PDF e começar a analisar.
+              </p>
+            </div>
           </div>
         </MainContent>
       </div>
