@@ -140,13 +140,11 @@
 
 @media screen and (max-width: 768px) {
   .modalOverlay {
-    justify-content: flex-start;
     overflow: scroll;
   }
 
   .modalContent {
     margin: 0 1rem;
-    overflow: scroll;
   }
 
   .modalHeaderContent {
