@@ -41,10 +41,38 @@
 }
 
 .positive {
-  color: #4caf50; /* Verde para positivo */
+  color: #4caf50;
 }
 
 .description {
   font-size: 0.75rem;
   color: #666;
+}
+
+.progress {
+  width: 100px;
+  height: 100px;
+  margin: -10% 70%;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    height: 80px;
+    padding: 1rem;
+  }
+
+  .value {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .footer {
+    display: none;
+  }
+
+  .progress {
+    width: 60px;
+    height: 60px;
+    margin: -16% 80%;
+  }
 }

@@ -1,8 +1,8 @@
 .container {
   display: flex;
-  height: 100vh; /* Mantém a página ocupando toda a altura */
+  height: 100vh;
   background-color: #f9f9f9;
-  position: relative; /* Certifique-se de que isso não interfira no modal */
+  position: relative;
 }
 
 .content {
@@ -47,4 +47,10 @@
   cursor: pointer;
   background-color: #d1c4e962;
   color: #4510a3;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
 }

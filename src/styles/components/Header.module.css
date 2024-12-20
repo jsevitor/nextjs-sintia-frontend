@@ -1,5 +1,5 @@
 .header {
-  padding: 20px;
+  padding: 1.25rem;
   background: linear-gradient(90deg, #00c6ff, #0072ff);
   color: white;
   width: 100%;
@@ -23,7 +23,7 @@
   display: flex;
   align-items: center;
   width: 50%;
-  height: 40px;
+  height: 2.5rem;
   margin-top: 3rem;
   padding: 0.2rem 1rem;
   border: 1px solid #ccc;
@@ -41,4 +41,21 @@
   border: none;
   outline: none;
   font-size: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 20%;
+    height: fit-content;
+  }
+
+  .searchContainer {
+    margin: 0;
+    width: 100%;
+  }
+
+  .card {
+    display: none;
+  }
 }

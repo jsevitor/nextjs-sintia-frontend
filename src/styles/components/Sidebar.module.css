@@ -1,5 +1,5 @@
 .sidebar {
-  width: 250px;
+  min-width: 250px;
   background-color: #f3f3f3;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -78,6 +78,10 @@
   background-color: #ededed;
 }
 
+.hamburgerMenu {
+  display: none;
+}
+
 .icon {
   margin-right: 0.625rem;
 }
@@ -99,4 +103,68 @@
 .attribution a {
   font-size: 0.625rem;
   color: #3e52a390;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    height: 90px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo img {
+    width: 100px;
+    height: 50px;
+    flex: 1;
+  }
+
+  .uploadButton {
+    margin: 0;
+  }
+
+  .menu {
+    display: flex;
+  }
+
+  .hamburgerMenu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background: none;
+    border: none;
+  }
+
+  .hamburgerMenu i {
+    font-size: 1.75rem;
+  }
+
+  .hamburgerMenu i:hover {
+    cursor: pointer;
+    color: #5e35b1;
+  }
+
+  .menu_items {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 2rem;
+    position: absolute;
+    top: 9%;
+    left: 0;
+    background-color: #ffffff;
+    border: 1px solid #efefef;
+    border-radius: 0.2rem;
+    z-index: 1;
+  }
+
+  .menu_items.open {
+    display: flex;
+  }
+
+  .footer {
+    display: none;
+  }
 }

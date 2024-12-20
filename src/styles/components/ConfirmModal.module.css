@@ -63,3 +63,9 @@
 .modalActions button:hover {
   background-color: #4510a3;
 }
+
+@media screen and (max-width: 768px) {
+  .modal {
+    margin: 0 1rem;
+  }
+}

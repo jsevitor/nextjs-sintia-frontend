@@ -8,8 +8,8 @@ import ResultCards from "@/components/ResultsPage";
 import ConfirmDeleteModal from "@/components/ConfirmModal";
 
 import api from "@/services/api";
-import styles from "@/styles/pages/Analises.module.css";
 import toast from "react-hot-toast";
+import styles from "@/styles/pages/Analises.module.css";
 
 export default function Analises() {
   const [selectedContracts, setSelectedContracts] = useState([]); // Estado para os contratos selecionados

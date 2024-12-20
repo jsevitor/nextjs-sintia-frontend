@@ -87,5 +87,15 @@
 }
 
 .selected-row {
-  background-color: #d3f9d8; /* Verde claro */
+  background-color: #d3f9d8;
+}
+
+@media screen and (max-width: 768px) {
+  .tableContainer {
+    margin-top: 1rem;
+  }
+
+  .tableContent {
+    overflow: scroll;
+  }
 }

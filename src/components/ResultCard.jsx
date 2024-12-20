@@ -16,13 +16,7 @@ const ResultCard = ({
       </div>
       <div className={styles.value}>
         {showProgress ? (
-          <div
-            style={{
-              width: "100px",
-              height: "100px",
-              margin: "-10% 70%",
-            }}
-          >
+          <div className={styles.progress}>
             <CircularProgressbar
               value={value}
               text={`${value}%`}

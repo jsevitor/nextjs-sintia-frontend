@@ -137,3 +137,34 @@
 .modalButtonPrimary:hover {
   background-color: #5a36db;
 }
+
+@media screen and (max-width: 768px) {
+  .modalContent {
+    margin: 0 1rem;
+  }
+
+  .modalHeaderContent {
+    gap: 1rem;
+  }
+
+  .modalHeader h1,
+  .modalHeader h1 span {
+    font-size: 1.25rem;
+  }
+
+  .modalImg img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .modalBody {
+    margin: 0;
+    margin-top: -2.7rem;
+    padding: 0.75rem;
+  }
+
+  .modalFooter {
+    justify-content: center;
+    padding-top: 1rem;
+  }
+}

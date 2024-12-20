@@ -91,3 +91,10 @@
     transform: translateY(0);
   }
 }
+
+@media screen and (max-width: 768px) {
+  .uploadStatus {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

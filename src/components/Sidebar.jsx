@@ -13,7 +13,8 @@ const Sidebar = () => {
   const router = useRouter();
   const [isUploading, setIsUploading] = useState(false);
   const [fileName, setFileName] = useState("");
-  const { updateContracts } = useContractContext(); // Consumindo a função do contexto
+  const { updateContracts } = useContractContext();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
@@ -73,6 +74,11 @@ const Sidebar = () => {
     return router.pathname === path ? styles.active : "";
   };
 
+  // Função para alternar o estado do menu
+  const toggleMenu = () => {
+    setIsOpen(!isOpen); // Alterna o estado (abre ou fecha o menu)
+  };
+
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logo}>
@@ -90,11 +96,11 @@ const Sidebar = () => {
 
       {/* Botão para enviar arquivo */}
       <button className={styles.uploadButton} onClick={triggerFileInput}>
-        <i class="bi bi-plus"></i> <span>Enviar Arquivo</span>
+        <i className="bi bi-plus"></i> <span>Enviar Arquivo</span>
       </button>
 
-      <nav>
-        <ul className={styles.menu_items}>
+      <nav className={styles.menu}>
+        <ul className={`${styles.menu_items} ${isOpen ? styles.open : ""}`}>
           <li className={isActive("/")}>
             <Link href={"/"}>
               <i className="bi bi-house"></i>
@@ -108,7 +114,12 @@ const Sidebar = () => {
             </Link>
           </li>
         </ul>
+
+        <button className={styles.hamburgerMenu} onClick={toggleMenu}>
+          <i className={isOpen ? "bi bi-x" : "bi bi-list"}></i>
+        </button>
       </nav>
+
       <footer className={styles.footer}>
         <div className={styles.attribution}>
           © 2024 Voliverx Dev.
