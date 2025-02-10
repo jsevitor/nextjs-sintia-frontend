@@ -1,40 +1,85 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sintia - Análise de Contratos com IA
 
-## Getting Started
+Este projeto é uma aplicação web desenvolvida para analisar contratos utilizando inteligência artificial e extrair informações relevantes sobre eles. A ideia surgiu de um desafio proposto por uma empresa de seguros à minha faculdade, com o objetivo de criar uma solução inovadora que simplifique e agilize o processo de gestão de contratos.
 
-First, run the development server:
+## Demonstração
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![image](https://github.com/user-attachments/assets/d2213428-4d45-4ba9-879e-6f0c97c3529e)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Acesso ao Projeto
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+A aplicação está disponível em: [https://sintia.netlify.app/](https://sintia.netlify.app/)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Funcionalidades
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- **Upload de Contratos**: Permite o envio de documentos para análise.
+- **Análise com IA**: Utiliza a API Google Gemini para processar e interpretar o conteúdo dos contratos.
+- **Exibição de Resultados da Análise**: Apresenta os principais pontos, destacando as informações mais relevantes extraídas pela inteligência artificial.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Tecnologias Utilizadas
 
-## Learn More
+- **Frontend**:
+  - React.js com Next.js para a construção da interface do usuário.
+  - CSS Modules para estilização isolada dos componentes.
+- **Backend**:
+  - Node.js para o servidor e lógica de negócios.
+  - Integração com a API Google Gemini para processamento de linguagem natural.
+  - SQLite como banco de dados, com planos futuros para migração para PostgreSQL.
 
-To learn more about Next.js, take a look at the following resources:
+## Como Executar o Projeto Localmente
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Pré-requisitos**:
+   - Node.js instalado na máquina.
+   - Chave de API válida para a API Google Gemini.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. **Passos**:
+   - Clone o repositório:
+     ```bash
+     git clone https://github.com/seu-usuario/sintia.git
+     cd sintia
+     ```
+   - Instale as dependências:
+     ```bash
+     npm install
+     ```
+   - Configure a chave da API:
+     - Crie um arquivo `.env` na raiz do projeto e adicione sua chave de API:
+       ```
+       GEMINI_API_KEY=sua_chave_aqui
+       ```
+   - Inicie o servidor de desenvolvimento:
+     ```bash
+     npm run dev
+     ```
+   - Acesse a aplicação em: `http://localhost:3000`
 
-## Deploy on Vercel
+## Melhorias Futuras
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Implementação de Autenticação**: Adicionar sistema de login para diferentes níveis de acesso.
+- **Suporte a Múltiplos Formatos de Arquivo**: Permitir o upload de diversos tipos de documentos.
+- **Otimização da Performance**: Melhorar o tempo de resposta durante a análise dos contratos.
+- **Migração do banco de dados**: Passar de SQLite para PostgreSQL para maior escalabilidade.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contribuição
+
+Contribuições são bem-vindas! Se você tiver sugestões ou melhorias, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+
+## Colaboradores
+
+  - **José Vitor Oliveira** - ([jsevitor](https://github.com/jsevitor)): Desenvolvedor responsável pela implementação da aplicação, integração com a API Google Gemini e funcionalidades do frontend.
+  - **Vinícius Nunes** - ([vinicgabriel](https://github.com/vinicgabriel)): Designer responsável pelas telas e pela experiência visual da aplicação.
+
+## Licença
+
+Este projeto está licenciado sob a **MIT License** - consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## Contato
+
+Caso queira entrar em contato, me encontre em:
+
+- **LinkedIn**: [linkedin.com/in/josevitoroliveira](https://linkedin.com/in/josevitoroliveira)
+- **E-mail**: [vitorjseo@gmail.com](mailto:vitorjseo@gmail.com)
+
+---
+Desenvolvido por **Vitor Oliveira**.
+
